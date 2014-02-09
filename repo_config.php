@@ -5,4 +5,6 @@ $data=json_decode($config,true);
 if($data===FALSE){
 	//TODO 处理
 }
+echo("<pre>");
 var_dump($data);
+echo("</pre>");

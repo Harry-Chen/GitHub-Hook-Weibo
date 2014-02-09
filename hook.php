@@ -1,6 +1,6 @@
 <?php
 function getWeiboAuthInfo(){
-	$auth_info=file_get_contents('weibo_config.json');
+	$auth_info=file_get_contents('auth_config.json');
 	if($auth_info===FALSE){
         	//TODO 跳转到weibo_config.php进行配置
 	}
@@ -32,14 +32,20 @@ function getNotifyName($repoName){
 include_once('sdk.php');
 ini_set("display_errors", 1);
 ini_set("error_reporting", E_ALL);
+header("Content-Type:text/html;charset=utf-8");
 
 $auth_info=getWeiboAuthInfo();
 //var_dump($auth_info);
 $weibo = new SaeTClientV2($auth_info['AppKey'], $auth_info['AppSecret'] ,$auth_info['AccessToken']);
 
-$payload = $_POST['payload'];
-if ($payload == '') {
-    $payload = $_GET['payload'];
+if (isset($_POST['payload'])){
+	$payload = $_POST['payload'];
+}
+else if (isset($_GET['payload'])) {
+	$payload = $_GET['payload'];
+}
+else{
+	die("错误，没有数据");
 }
 $data = json_decode($payload);
 if (is_object($data) && is_array($data->commits)) {
@@ -62,5 +68,5 @@ $data['url'] . ' ' .  $notify;
         }
     }
 } else {
-    die('没有数据');
+    die('错误：数据无法解析');
 }
