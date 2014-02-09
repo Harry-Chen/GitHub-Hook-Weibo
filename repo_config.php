@@ -5,7 +5,7 @@ if($config===FALSE){
 	$trunc='[';
 }
 else {
-	$trunc=substr($config,0,strlen($config)-2) . ',';
+	$trunc=substr($config,0,strlen($config)-1) . ',';
 }
 //echo($trunc);
 if($_POST['action']==='new'){
