@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>
+增加新Hook
+</title>
+</head>
+<body>
+<h1>增加新Hook</h1><br />
+请在GitHub的Hook中填入http://www.githubhook.tk/hook.php以后填写此表单。
+<form accept-charset="utf-8" method="post" target="_self" action="repo_config.php" enctype="multipart/form-data">
+GitHub Repo名称:
+<input type="text" name="repo_name"><br />
+要提醒的微博用户昵称（请以英文逗号","分隔每个用户，需要@符号）:
+<textarea rows="10" cols="30" name="notify_users">
+@
+</textarea>
+</br>
+<input type="hidden" name="action" value="new">
+<input type ="submit" value ="提交">
+<input type="reset" value="重置">
+</form>
+</body>
+</html>
