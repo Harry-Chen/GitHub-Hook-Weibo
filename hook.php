@@ -4,18 +4,20 @@ function getWeiboAuthInfo(){
 	if($auth_info===FALSE){
         	//TODO 跳转到weibo_config.php进行配置
 	}
-	$auth_info=json_decode($auth_info,true);
+	$decoded=json_decode($auth_info,true);
+	return $decoded;
 }
 
 function getNotifyName($repoName){
-	return '@HarryChen-SIGKILL @一抔学渣' ;
+	return '@HarryChen-SIGKILL- @一抔学渣' ;
 }
 
 include_once('sdk.php');
 ini_set("display_errors", 1);
 ini_set("error_reporting", E_ALL);
 $auth_info=getWeiboAuthInfo();
-$weibo = new SaeTClientV2($auth_info['AccessKey'], $auth_info['SecretKey'] ,$auth_info['AccessToken']);
+var_dump($auth_info);
+$weibo = new SaeTClientV2($auth_info['AppAccess'], $auth_info['AppSecret'] ,$auth_info['AccessToken']);
 $payload = $_POST['payload'];
 if ($payload == '') {
     $payload = $_GET['payload'];
