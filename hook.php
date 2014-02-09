@@ -9,15 +9,34 @@ function getWeiboAuthInfo(){
 }
 
 function getNotifyName($repoName){
-	return '@HarryChen-SIGKILL- @一抔学渣' ;
+	$config=file_get_contents('repo_config.json');
+	$data=json_decode($config);
+	//var_dump($data);
+	if($data===FALSE){
+        	//TODO 跳转到config
+	}
+	if(is_array($data)){
+		foreach($data as $repo){
+			//var_dump($repo);
+			$name=$repo->repo_name;
+			if($name===$repoName){
+				return implode(' ',$repo->notify_user_name);
+			}
+			else{
+				//TODO 又是错误处理
+			}
+		}
+	}
 }
 
 include_once('sdk.php');
 ini_set("display_errors", 1);
 ini_set("error_reporting", E_ALL);
+
 $auth_info=getWeiboAuthInfo();
-var_dump($auth_info);
-$weibo = new SaeTClientV2($auth_info['AppAccess'], $auth_info['AppSecret'] ,$auth_info['AccessToken']);
+//var_dump($auth_info);
+$weibo = new SaeTClientV2($auth_info['AppKey'], $auth_info['AppSecret'] ,$auth_info['AccessToken']);
+
 $payload = $_POST['payload'];
 if ($payload == '') {
     $payload = $_GET['payload'];
@@ -43,6 +62,5 @@ $data['url'] . ' ' .  $notify;
         }
     }
 } else {
-    die('no_data');
+    die('没有数据');
 }
-
