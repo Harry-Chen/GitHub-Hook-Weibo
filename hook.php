@@ -13,7 +13,7 @@ function getNotifyName($repoName){
 	$data=json_decode($config);
 	//var_dump($data);
 	if($data===FALSE){
-        	//TODO 跳转到config
+        	return NULL;
 	}
 	if(is_array($data)){
 		foreach($data as $repo){
@@ -22,11 +22,10 @@ function getNotifyName($repoName){
 			if($name===$repoName){
 				return implode(' ',$repo->notify_user_name);
 			}
-			else{
-				//TODO 又是错误处理
-			}
 		}
+		return NULL;
 	}
+	return NULL;
 }
 
 include_once('sdk.php');
@@ -52,6 +51,9 @@ if (is_object($data) && is_array($data->commits)) {
     $refs = substr($data->ref, 11);
     $repo = $data->repository->name;
     $notify = getNotifyName($repo);
+    if($notify===NULL){
+	die("没有相应的Repo配置，拒绝");
+    }
     foreach ($data->commits as $commit) {
         $data = array(
             'author' => $commit->author->name,
