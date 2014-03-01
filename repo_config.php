@@ -1,6 +1,6 @@
 <?
 header("Content-type: text/html; charset=utf-8");
-$config=file_get_contents('repo_config.json');
+$config=file_get_contents('config/repo_config.json');
 if($config===FALSE){
 	$trunc='[';
 }

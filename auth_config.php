@@ -1,6 +1,6 @@
 <body>
 <?
-$auth_info=file_get_contents('auth_config.json');
+$auth_info=file_get_contents('config/auth_config.json');
 if($auth_info===FALSE){
 	//无此文件，会在以后版本添加配置功能，目前只能读取
 }
